@@ -10,7 +10,7 @@ The goal is to successfully navigate the maze. Check out the project for a demon
   <ol>
     </li>
     <li><a href="#Introduction">Introduction</a></li>
-    <li><a href="#usage">Usage</a></li>
+    <li><a href="#Installing and running">Installing and running</a></li>
     <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
