@@ -9,11 +9,11 @@ The goal is to successfully navigate the maze. Check out the project for a demon
   <summary>Table of Contents</summary>
   <ol>
     <li><a href="#Introduction">Introduction</a></li>
-    <li><a href="#installing and running">Installing and running</a></li>
-    <li><a href="#RobotAPI">RobotAPI</a></li>
+    <li><a href="#installing&running">Installing&running</a></li>
+    <li><a href="#RobotAPI">Robot_API</a></li>
     <li><a href="#Flowchart">Flowchart</a></li>
-    <li><a href="#Main Functions">Main Functions</a></li>
-    <li><a href="#Robot Movement Improvement Proposal">Robot Movement Improvement Proposal</a></li>
+    <li><a href="#Main_Functions">Main_Functions</a></li>
+    <li><a href="#Robot_Movement_Improvement_Proposal">Robot_Movement_Improvement_Proposal</a></li>
   </ol>
 </details>
 
@@ -31,8 +31,8 @@ The program was written using a combination of libraries and programming logic. 
 
 
 
-<!-- INSTALLING AND RUNNING -->
-## Installing and running
+<!-- INSTALLING&RUNNING -->
+## Installing&running
 
 The simulator requires a Python 2.7 installation, the [pygame](http://pygame.org/) library, [PyPyBox2D](https://pypi.python.org/pypi/pypybox2d/2.1-r331), and [PyYAML](https://pypi.python.org/pypi/PyYAML/).
 To install the libraries up here, here's some commands for the linux shell:
@@ -53,8 +53,8 @@ $ python2 run.py assignment.py
 
 
 
-<!-- RobotAPI -->
-## RobotAPI
+<!-- Robot_API -->
+## Robot_API
 
 The API for controlling a simulated robot is designed to be as similar as possible to the [SR API](https://www.studentrobotics.org/docs/programming/sr/cheat_sheet).
 
@@ -107,7 +107,7 @@ Each `Marker` object has the following attributes:
 ## Flowchart 
 
 <!-- Main Functions -->
-## Main Functions
+## Main_Functions
 
 * <h3>Drive motors :<h3>
 ```python
@@ -284,8 +284,8 @@ Project Link: [https://github.com/your_username/repo_name](https://github.com/yo
 
 
 
-<!-- Robot Movement Improvement Proposal -->
-## Robot Movement Improvement Proposal
+<!-- Robot_Movement_Improvement_Proposal -->
+## Robot_Movement_Improvement_Proposal
 
 The following report will outline two potential improvements to the current code. These modifications aim to enhance the robot's movement and make it smoother and more efficient.
 
