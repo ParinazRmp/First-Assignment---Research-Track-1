@@ -39,17 +39,17 @@ The simulator requires a Python 2.7 installation, the [pygame](http://pygame.org
 To install the libraries up here, here's some commands for the linux shell:
 
 ```bash
-$ sudo apt-get install python-dev python-pip python-pygame python-yaml`
+$ sudo apt-get install python-dev python-pip python-pygame python-yaml
 ```
 
 ``` bash
-$ sudo pip install pypybox2d`
+$ sudo pip install pypybox2d
 ```
 
 Once the dependencies are installed, get inside the directory on the shell. To run the game, run the command:
 
 ```bash
-$ python2 run.py assignment.py`
+$ python2 run.py assignment.py
 ```
 
 
