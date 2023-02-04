@@ -9,8 +9,8 @@ The goal is to successfully navigate the maze. Check out the project for a demon
   <summary>Table of Contents</summary>
   <ol>
     <li><a href="#Introduction">Introduction</a></li>
-    <li><a href="#installing&running">Installing&running</a></li>
-    <li><a href="#RobotAPI">Robot_API</a></li>
+    <li><a href="#installing_and_running">Installing_and_running</a></li>
+    <li><a href="#Robot_API">Robot_API</a></li>
     <li><a href="#Flowchart">Flowchart</a></li>
     <li><a href="#Main_Functions">Main_Functions</a></li>
     <li><a href="#Robot_Movement_Improvement_Proposal">Robot_Movement_Improvement_Proposal</a></li>
@@ -31,8 +31,8 @@ The program was written using a combination of libraries and programming logic. 
 
 
 
-<!-- INSTALLING&RUNNING -->
-## Installing&running
+<!-- INSTALLING_and_RUNNING -->
+## Installing_and_running
 
 The simulator requires a Python 2.7 installation, the [pygame](http://pygame.org/) library, [PyPyBox2D](https://pypi.python.org/pypi/pypybox2d/2.1-r331), and [PyYAML](https://pypi.python.org/pypi/PyYAML/).
 To install the libraries up here, here's some commands for the linux shell:
