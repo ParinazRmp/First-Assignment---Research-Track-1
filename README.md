@@ -53,7 +53,7 @@ $ python2 run.py assignment.py
 
 
 
-<!-- Robot API -->
+<!-- RobotAPI -->
 ## Robot API
 
 The API for controlling a simulated robot is designed to be as similar as possible to the [SR API](https://www.studentrobotics.org/docs/programming/sr/cheat_sheet).
