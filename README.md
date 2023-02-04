@@ -109,65 +109,153 @@ Each `Marker` object has the following attributes:
 <!-- Main Functions -->
 ## Main Functions
 
-* Drive motors:
+* <h3>Drive motors :<h3>
 ```python
-def drive(speed, seconds):
-    R.motors[0].m0.power = speed
-    R.motors[0].m1.power = speed
-    time.sleep(seconds)
-    R.motors[0].m0.power = 0
-    R.motors[0].m1.power = 0
+def drive(speed , seconds):
+	R.motors[0].m0.power = speed
+	R.motors[0].m1.power = speed 
+	time.sleep(seconds) 
+	R.motors[0].m0.power = 0
+	R.motors[0].m1.power = 0
 ```
 
  
-
 1. With the *speed* setting, the robot's linear velocity can be defined.
 2. *Seconds* indicates how long the speed will last.
 
 
-* Rotation:
+* <h3>Turn :<h3>
+```python
+def turn(speed , seconds):
+	R.motors[0].m0.power = speed 
+	R.motors[0].m1.power = -speed 
+	time.sleep(seconds)
+	R.motors[0].m0.power =0
+	R.motors[0].m1.power =0
+```
+
+The "Turn on Axis" Function provides the capability for the robot to rotate around its central point. It takes two arguments, "speed" and "seconds", that control the behavior of the robot during the rotation.
+
+The "speed" argument defines the velocity of the motors, with one motor moving in a positive direction and the other in a negative direction to create the rotation. The "seconds" argument specifies the duration of the rotation, indicating the time interval for which the rotation should take place.
+
+This function does not produce any returns and is used to give the robot the ability to turn on its axis.
+
+
+* <h3>find golden tokens:<h3>
 
 ```python
-$ turn(speed, seconds)
+
+def find_golden_token(distance=0.9, angle=45):
+	dist = distance
+
+	for token in R.see():
+		
+		if token.dist < dist and token.info.marker_type is MARKER_TOKEN_GOLD and -angle < token.rot_y < angle:
+			
+			dist = token.dist
+		
+		rot_y = token.rot_y
+		
+	if dist == distance:
+		
+		return False
+	
+	else:
+		
+		return True 
 ```
-By setting the "speed", it is possible to define the angular velocity of the robot. "seconds" indicates the duration of the generated speed.
+Function detects closest golden box in a cone-shaped area. The cone has a default angle of 90 degrees (-45 to 45) and a maximum distance of 0.9. 
+
+It stops the robot and helps avoid walls. 
+
+Arguments "distance" and "angle" can be set. Returns True if no golden boxes detected, False if detected.
 
 
-* finding Silver tokens:
+* <h3>find Silver tokens:<h3>
 
 ```python
-$ find_silver_token()
+dist = 1.2
+	
+	for token in R.see():
+	
+		if -70 < token.rot_y < 70:
+		
+			if token.info.marker_type is MARKER_TOKEN_SILVER and token.dist < dist:
+			
+				if gold_in_between(token.dist, token.rot_y):
+				
+					print("Looking for a new Silver!!")
+					
+				else:
+					
+					dist = token.dist 
+					
+					rot_y = token.rot_y
+	if dist == 1.2:
+	
+		return -1, -1
+		
+	else:
+		
+		return dist, rot_y
 ```
-Generate the rotation and distance form the Silver Token respect to the robot.
-Retuens:
-1)distance respect to the robot
-2)rotation respect to the robot
 
+The function ``` def find_silver_token() ``` has the capability to identify the nearest silver token within a 140-degree cone, with a maximum range of 1.2 meters. 
 
-* Obstacle avoidance:
+The function utilizes the "gold_in_between" method to overlook any tokens that may be blocked by obstacles such as walls. 
+
+The primary objective of this function is to locate and approach silver tokens. 
+
+The output of this function includes the distance to the closest silver token and the angle in degrees between the robot and the token. If no silver tokens are detected or if they are obstructed by golden boxes, the function returns -1
+    
+  
+<strong> The find_silver_token() function has two sub-functions: ``` def gold_in_between(dist, rot_y) ```, and ``` def Routine()```. <strong>
+
+  - gold_in_between() checks for the presence of golden boxes between the robot and the silver tokens it is searching for. It takes the distance and angle of the detected silver token as input and returns False if there are no golden boxes in between, or True if there are. 
+  
+  - Routine() is called if gold_in_between() returns False, and it carries out the sequence of actions to approach, grab, turn, release, and turn away from the silver token. This function only activates if the robot is close enough to the silver token, with a distance threshold of 0.4. If the robot is too far from the silver token, it continues to drive.
+  
+
+* <h3>Rotation :<h3>
 
 ```python
-$ find_golden_token()
+def Rotation():
+
+	dist_right = 7
+	dist_left = 7
+	
+	for token in R.see():
+	
+		if 75 < token.rot_y < 105:
+		
+			if token.info.marker_type is MARKER_TOKEN_GOLD and token.dist < dist_right:
+				
+				dist_right = token.dist
+				
+		if -105 < token.rot_y < -75:
+		
+			if token.info.marker_type is MARKER_TOKEN_GOLD and token.dist < dist_left:
+			
+				dist_left = token.dist 
+				
+	if dist_right > dist_left:
+	
+		while find_golden_token(1,45.5):
+		
+			turn(10,0.1)	
+	else:
+	
+		while find_golden_token(1,45.5):
+			
+			turn(-10,0.1)
 ```
-find golden tokens and allocate the rotations to different zones to detect the distance of golden tokens respect to the robot.
-Returns:
-angle and distance of 
-   1)right side obstacles
-   2)left side obstacles
-   3)front side obstacles
+The described function serves to calculate the distance between the robot and the nearest golden box to its right and left, each at an angle of 30 degrees. The range for the right golden box falls between 75 and 105 degrees, while for the left it falls between -105 and -75 degrees.
 
-
-* Token availability:
-
-```python
-$ Token_check(dist, rot_y,front_obs_dis,left_obs_dis right_obs_dis)
+In order to locate the golden box, the robot will rotate towards the furthest golden box until it no longer detects any golden box in a cone with a 91-degree field of view and a distance of 1 unit in front of it. The angle and distance of the cone can be adjusted by passing the arguments to the function: 
 ```
-Detect and check whether the golden token is between the robot and silver token or not. 
-
-
-* Main loop:
-A while()-loop to control and navigate the robot in the right path to satisfy all desiered purposes.
-
+find_golden_token(..,..)
+```
+Thanks to this feature, the robot will always turn counter-clockwise when searching for the golden box.
 
 
 <!-- CONTRIBUTING -->
