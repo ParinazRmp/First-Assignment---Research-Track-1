@@ -202,18 +202,16 @@ dist = 1.2
 
 The function ``` def find_silver_token() ``` has the capability to identify the nearest silver token within a 140-degree cone, with a maximum range of 1.2 meters. 
 
-The function utilizes the "gold_in_between" method to overlook any tokens that may be blocked by obstacles such as walls. 
+The function utilizes the ``` def gold_in_between(dist, rot_y) ``` method to overlook any tokens that may be blocked by obstacles such as walls. 
 
 The primary objective of this function is to locate and approach silver tokens. 
 
-The output of this function includes the distance to the closest silver token and the angle in degrees between the robot and the token. If no silver tokens are detected or if they are obstructed by golden boxes, the function returns -1
-    
+The output of this function includes the distance to the closest silver token and the angle in degrees between the robot and the token. If no silver tokens are detected or if they are obstructed by golden boxes, the function returns -1.
+											       
+The ``` def find_silver_token() ``` function has two sub-functions: ``` def gold_in_between(dist, rot_y) ```, and ``` def Routine()```.								       
+  - ``` def gold_in_between(dist, rot_y) ``` checks for the presence of golden boxes between the robot and the silver tokens it is searching for. It takes the distance and angle of the detected silver token as input and returns False if there are no golden boxes in between, or True if there are. 
   
-<strong> The find_silver_token() function has two sub-functions: ``` def gold_in_between(dist, rot_y) ```, and ``` def Routine()```. <strong>
-
-  - gold_in_between() checks for the presence of golden boxes between the robot and the silver tokens it is searching for. It takes the distance and angle of the detected silver token as input and returns False if there are no golden boxes in between, or True if there are. 
-  
-  - Routine() is called if gold_in_between() returns False, and it carries out the sequence of actions to approach, grab, turn, release, and turn away from the silver token. This function only activates if the robot is close enough to the silver token, with a distance threshold of 0.4. If the robot is too far from the silver token, it continues to drive.
+  - ``` def Routine()```is called if ``` def gold_in_between(dist, rot_y) ``` returns False, and it carries out the sequence of actions to approach, grab, turn, release, and turn away from the silver token. This function only activates if the robot is close enough to the silver token, with a distance threshold of 0.4. If the robot is too far from the silver token, it continues to drive.
   
 
 * <h3>Rotation :<h3>
@@ -251,14 +249,31 @@ def Rotation():
 ```
 The described function serves to calculate the distance between the robot and the nearest golden box to its right and left, each at an angle of 30 degrees. The range for the right golden box falls between 75 and 105 degrees, while for the left it falls between -105 and -75 degrees.
 
-In order to locate the golden box, the robot will rotate towards the furthest golden box until it no longer detects any golden box in a cone with a 91-degree field of view and a distance of 1 unit in front of it. The angle and distance of the cone can be adjusted by passing the arguments to the function: 
-```
-find_golden_token(..,..)
-```
+In order to locate the golden box, the robot will rotate towards the furthest golden box until it no longer detects any golden box in a cone with a 91-degree field of view and a distance of 1 unit in front of it. The angle and distance of the cone can be adjusted by passing the arguments to the function ``` find_golden_token(..,..) ```.
+
 Thanks to this feature, the robot will always turn counter-clockwise when searching for the golden box.
+	
+	
 
+* <h3>main() :<h3>
+	
+The main goal of this function is to allow the robot to continuously perform its tasks. It follows these steps:
 
-<!-- CONTRIBUTING -->
+1. Look for golden boxes. The robot's behavior changes based on its proximity to a golden box or a silver token.
+
+2. Check if a silver token is within the robot's field of vision.
+
+3. Take action based on the result of step 2:
+	- If the robot detects a silver token, it moves towards it to grab it. This is done through checking "if rot_y != -1", as find_silver_token() returns -1 if no silver tokens are found.
+	- If the robot doesn't detect a silver token, it continues driving straight ahead.
+
+		
+	
+4. If the robot is close to a golden box, it will call the ``` def Rotation(): ``` function to turn counter-clockwise with respect to its path.
+	
+	
+
+<!-- CONTRIBUTING -->	
 ## Contributing
 
 Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
