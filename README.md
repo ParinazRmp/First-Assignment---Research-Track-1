@@ -10,7 +10,7 @@ The goal is to successfully navigate the maze. Check out the project for a demon
   <ol>
     <li><a href="#Introduction">Introduction</a></li>
     <li><a href="#installing and running">Installing and running</a></li>
-    <li><a href="#Robot API">Robot API</a></li>
+    <li><a href="#Robot API">RobotAPI</a></li>
     <li><a href="#Flowchart">Flowchart</a></li>
     <li><a href="#Main Functions">Main Functions</a></li>
     <li><a href="#Robot Movement Improvement Proposal">Robot Movement Improvement Proposal</a></li>
