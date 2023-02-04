@@ -31,6 +31,7 @@ The program was written using a combination of libraries and programming logic. 
 
 
 <!-- Installing and running -->
+<!-- Installing and running -->
 ## Installing and running
 
 The simulator requires a Python 2.7 installation, the [pygame](http://pygame.org/) library, [PyPyBox2D](https://pypi.python.org/pypi/pypybox2d/2.1-r331), and [PyYAML](https://pypi.python.org/pypi/PyYAML/).
