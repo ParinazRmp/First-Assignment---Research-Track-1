@@ -12,7 +12,7 @@ The goal is to successfully navigate the maze. Check out the project for a demon
     <li><a href="#installing_and_running">Installing_and_running</a></li>
     <li><a href="#Robot_API">Robot_API</a></li>
     <li><a href="#Flowchart">Flowchart</a></li>
-    <li><a href="# Simulation_and_Results">Simulation_and_Results</a></li>
+    <li><a href="#Simulation_and_Results">Simulation_and_Results</a></li>
     <li><a href="#Robot_Movement_Improvement_Proposal">Robot_Movement_Improvement_Proposal</a></li>
   </ol>
 </details>
