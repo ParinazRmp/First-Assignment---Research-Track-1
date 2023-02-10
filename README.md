@@ -12,7 +12,7 @@ The goal is to successfully navigate the maze. Check out the project for a demon
     <li><a href="#installing_and_running">Installing_and_running</a></li>
     <li><a href="#Robot_API">Robot_API</a></li>
     <li><a href="#Flowchart">Flowchart</a></li>
-    <li><a href="# Simulation_and_Results"> Simulation_and_Results</a></li>
+    <li><a href="# Simulation_and_Results">Simulation_and_Results</a></li>
     <li><a href="#Robot_Movement_Improvement_Proposal">Robot_Movement_Improvement_Proposal</a></li>
   </ol>
 </details>
@@ -276,8 +276,7 @@ The main goal of this function is to allow the robot to continuously perform its
 <!-- Simulation_and_Results -->
 ## Simulation_and_Results
 
-https://user-images.githubusercontent.com/94115975/218220706-ca2ee003-8415-4741-8aa6-765cea2ef740.mp4
-
+https://user-images.githubusercontent.com/94115975/218223479-2e771eb1-105f-4806-9850-aedf24090665.mp4
 
 <!-- Robot_Movement_Improvement_Proposal -->
 ## Robot_Movement_Improvement_Proposal
