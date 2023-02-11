@@ -1,0 +1,16 @@
+game: abc
+
+game: caldera
+
+#num_tokens: 20
+game: ctf
+
+game: ctf
+zone_flags: off
+
+game: pirate-plunder
+num_tokens: 20
+
+game: sunny-side-up
+
+game: two-colours
