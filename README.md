@@ -1,80 +1,64 @@
-
-# Python Robotics Simulator  <img src="https://media4.giphy.com/media/dWlLf9EAC8u5Nd0ku4/giphy.gif?cid=ecf05e479junsdcbh0eayqrrx90l4oo4lj83zpqi9yrught2&rid=giphy.gif&ct=s" width="50"></h2>
-## First Assignment of the course [Research_Track_1](https://unige.it/en/off.f/2021/ins/51201.html?codcla=10635) , [Robotics Engineering](https://courses.unige.it/10635). 
-###  Professor. [Carmine Recchiuto](https://github.com/CarmineD8).
-
------------------------
-
-This is a simple, portable robot simulator developed by [Student Robotics](https://studentrobotics.org).
-
-The project aims to make a holonomic robot move inside a maze without hitting walls made of golden boxes. Furthermore, inside the maze, there are many silver tokens that the robot have to grab, move them behind him and then start again with the search for the next tokens. 
-
-#### Holonomic Robot
-
-![alt text](https://github.com/MatteoCarlone/my_Research_Track/blob/main/sr/robot.png)
-
-#### Silver Token 
-
-![alt text](https://github.com/MatteoCarlone/my_Research_Track/blob/main/sr/token_silver.png)
-
-#### Gold Box
-
-![alt text](https://github.com/MatteoCarlone/my_Research_Track/blob/main/sr/token.png)
-
-#### Map 
-
-<img src="https://github.com/MatteoCarlone/my_Research_Track/blob/main/images/map.png" > 
-
-The main difficulties I faced in this project were three:
-
-* make the robot move on the map always in the correct direction (in my case counterclockwise)
-
-* avoid walls (golden boxes)
-
-* detect the silver tokens in order to grab them by paying attention to any gold boxes in between
-
-The robot is able to do this thanks to two motors parallel to each other and the ability to see around itself and recognize in particular golden boxes and silver tokens. Its vision can also be limited to see only in some directions rather than others at different distances.
-
-This project helped me to improve my knowledge of python especially in managing and creating multiple functions at the same time. It was also a first approach to the world of robotics in preparation for the study and use of [**ROS**](http://wiki.ros.org) (Robot-Operating-Systems) which is a set of software libraries and tools that help build robot applications.
+# First Assignment - Research Track 1
+A Python script for controlling a robot in a maze filled with golden and silver boxes. 
+The robot moves counter-clockwise, avoids the golden boxes and grabs the silver boxes. 
+The goal is to successfully navigate the maze. Check out the project for a demonstration of the robot's abilities.
 
 
-Installing and running <img src="https://media3.giphy.com/media/LwBuVHh34nnCPWRSzB/giphy.gif?cid=ecf05e47t4j9mb7l8j1vzdc76i2453rexlnv7iye9d4wfdep&rid=giphy.gif&ct=s" width="50"></h2>
------------------------
+<!-- TABLE OF CONTENTS -->
+<details>
+  <summary>Table of Contents</summary>
+  <ol>
+    <li><a href="#Introduction">Introduction</a></li>
+    <li><a href="#installing_and_running">Installing_and_running</a></li>
+    <li><a href="#Robot_API">Robot_API</a></li>
+    <li><a href="#Flowchart">Flowchart</a></li>
+    <li><a href="#Simulation_and_Results">Simulation_and_Results</a></li>
+    <li><a href="#Robot_Movement_Improvement_Proposal">Robot_Movement_Improvement_Proposal</a></li>
+  </ol>
+</details>
+
+
+
+<!-- Introduction -->
+## Introduction
+
+The purpose of this program is to control a robot and gather information about it using the sr library. The robot's primary objective is to follow a specific path while avoiding obstacles represented by golden tokens. Additionally, the robot is designed to grab silver tokens when they are within reach and move them behind itself. The program works by analyzing the robot's position relative to the golden and silver tokens. If the robot is too close to a golden token, it turns away to avoid collision. If the robot is close enough to a silver token, it grabs the token and moves it behind itself.
+
+The project was part of a challenge to make the robot move within a maze made of golden boxes, and the goal was to make the robot grab silver boxes along the way. The behavior of the robot was also specified, and the robot was required to move only counterclockwise, meaning that the robot should always turn to the right when it encounters a wall.
+
+The program was written using a combination of libraries and programming logic. The code was developed step by step, starting with the installation of libraries, the development of functions, and finally, the main code. 
+
+
+
+
+<!-- INSTALLING_and_RUNNING -->
+## Installing_and_running
 
 The simulator requires a Python 2.7 installation, the [pygame](http://pygame.org/) library, [PyPyBox2D](https://pypi.python.org/pypi/pypybox2d/2.1-r331), and [PyYAML](https://pypi.python.org/pypi/PyYAML/).
-
-Pygame, unfortunately, can be tricky (though [not impossible](http://askubuntu.com/q/312767)) to install in virtual environments. If you are using `pip`, you might try `pip install hg+https://bitbucket.org/pygame/pygame`, or you could use your operating system's package manager. Windows users could use [Portable Python](http://portablepython.com/). PyPyBox2D and PyYAML are more forgiving, and should install just fine using `pip` or `easy_install`.
-
-To run one or more scripts in the simulator, use `run.py`, passing it the file names. 
+To install the libraries up here, here's some commands for the linux shell:
 
 ```bash
-
-$ python run.py assignment.py
-
+$ sudo apt-get install python-dev python-pip python-pygame python-yaml
 ```
 
-Troubleshooting <img src="https://media0.giphy.com/media/3oFzlYuazAesniYNVe/giphy.gif?cid=ecf05e471tnvpnr5e4tdm3z3h65f3kboyrg4veeoi2ssj9ct&rid=giphy.gif&ct=s" width="50"></h2>
------------------------
+``` bash
+$ sudo pip install pypybox2d
+```
+
+Once the dependencies are installed, get inside the directory on the shell. To run the game, run the command:
+
+```bash
+$ python2 run.py assignment.py
+```
 
 
-When running `python run.py <file>`, you may be presented with an error: `ImportError: No module named 'robot'`. This may be due to a conflict between sr.tools and sr.robot. To resolve, symlink simulator/sr/robot to the location of sr.tools.
 
-On Ubuntu, this can be accomplished by:
-* Find the location of srtools: `pip show sr.tools`
-* Get the location. In my case this was `/usr/local/lib/python2.7/dist-packages`
-* Create symlink: `ln -s path/to/simulator/sr/robot /usr/local/lib/python2.7/dist-packages/sr/`
+<!-- Robot_API -->
+## Robot_API
 
-Robot API
----------
+The API for controlling a simulated robot is designed to be as similar as possible to the [SR API](https://www.studentrobotics.org/docs/programming/sr/cheat_sheet).
 
-The API for controlling a simulated robot is designed to be as similar as possible to the [SR API][sr-api].
-
----
-
-<h1 align = "center"> Features </h1>
-
-
-## Motors ##
+### Motors ###
 
 The simulated robot has two motors configured for skid steering, connected to a two-output [Motor Board](https://studentrobotics.org/docs/kit/motor_board). The left motor is connected to output `0` and the right motor to output `1`.
 
@@ -85,41 +69,7 @@ R.motors[0].m0.power = 25
 R.motors[0].m1.power = -25
 ```
 
-Two main functions have been designed to drive straight and to rotate the robot on its axis:
-
-* `drive(speed , seconds)` : This function gives the robot the ability of move straight for a certain time with a defined speed.
-
-    `Arguments` : 
-
-    * speed : the speed of the motors, that will be equal on each motor in order to move straight.
-
-    * seconds : the time interval in which the robot will move straight.
-
-    This function has no `Returns` .
-
-
-* `turn(speed , seconds)` : This function gives the robot the ability to turn on its axis.
-    
-    `Arguments` :
-
-    * speed : the speed of the motors, that will be positive for one and negative for the other in order to make the rotation.
-
-    * seconds : the time interval in which the robot will rotate.
-    
-    This function has no `Returns` .
-    
-* `Silver_Approach(dist, rot_y)` : This function has been implemented to get closer to the silver token when the robot detects one with its particular visual perception, a feature that I will describe later. At first, the robot checks if it is in the right direction to reach the silver token and if not, it will adapt itself turning left and right. Second, it will call the Routine() function to complete its purpose, take the silver token it saw.
-
-    `Arguments` :
-    
-    * dist : The distance of the silver token that the robot has detected.
-    
-    * rot_y : the angle in dregrees of the silver token that the robot has detected 
-    
-    This function has no `Returns` .
-    
-    
-## The Grabber ##
+### The Grabber ###
 
 The robot is equipped with a grabber, capable of picking up a token which is in front of the robot and within 0.4 metres of the robot's centre. To pick up a token, call the `R.grab` method:
 
@@ -133,29 +83,7 @@ To drop the token, call the `R.release` method.
 
 Cable-tie flails are not implemented.
 
-A function has been created to clean the main function of the code from the routine that the robot does when it has to grab a silver token.
-
-* `Routine()` : When the robot is close enough to a silver token (in particular at a distance of 0.4), thanks to this function, it will grab the token (method: `R.grab ()`), it will turn 180 ° ( function: `turn ()`), will release the token (method: `R.release ()`), go back for a while (function: `drive ()`) and finally turn 180 ° again to continue the ride in the maze.
-    
-    This function has no `Returns` .
-    
-```python
-    R.grab()
-    print("Gotcha!!")
-    turn(20,3)
-    R.release()
-    drive(-20,0.9)
-    turn(-20,3)
-```
-<h5>The Routine turns out to be: </h5>
-
-<p align="center">
-    
-<img src="https://github.com/MatteoCarlone/my_Research_Track/blob/main/images/Grab.gif" width="400" height="225.3">
-    
-</p>
-
-## Vision ##
+### Vision ###
 
 To help the robot find tokens and navigate, each token has markers stuck to it, as does each wall. The `R.see` method returns a list of all the markers the robot can see, as `Marker` objects. The robot can only see markers which it is facing towards.
 
@@ -174,134 +102,186 @@ Each `Marker` object has the following attributes:
 * `rot_y`: an alias for `centre.rot_y`
 * `timestamp`: the time at which the marker was seen (when `R.see` was called).
 
-For example, the following code lists all of the markers the robot can see:
 
+<!-- Flowchart  -->
+## Flowchart 
+
+<!-- Main Functions -->
+## Main_Functions
+
+* <h3>Drive motors :<h3>
 ```python
-
-markers = R.see()
-print "I can see", len(markers), "markers:"
-
-for m in markers:
-    if m.info.marker_type in (MARKER_TOKEN_GOLD, MARKER_TOKEN_SILVER):
-        print " - Token {0} is {1} metres away".format( m.info.offset, m.dist )
-    elif m.info.marker_type == MARKER_ARENA:
-        print " - Arena marker {0} is {1} metres away".format( m.info.offset, m.dist )
+def drive(speed , seconds):
+	R.motors[0].m0.power = speed
+	R.motors[0].m1.power = speed 
+	time.sleep(seconds) 
+	R.motors[0].m0.power = 0
+	R.motors[0].m1.power = 0
 ```
 
-Two main functions are designed to recognize the `Marker` object closest to the robot and whether it is gold or silver. 
+ 
+1. With the *speed* setting, the robot's linear velocity can be defined.
+2. *Seconds* indicates how long the speed will last.
 
 
-* `find_golden_token(distance=0.9, angle=45°)` : This function detects the closest golden box to the robot in a cone wich by default is 90° (between -45° and 45°) in a maximum distance of 0.9. The main purpose here is to have a threshold to stop the robot ad avoid walls.
-    
-    `Arguments` :
-    
-    *  distance = the settable distance of the cone in which the robot can detect golden boxes (by default 0.8).
-    
-    *  angle = the settable angle in degrees of the cone in which the robot can detect golden boxes (by default 45°)
-    
-    `Returns` : 
+* <h3>Turn :<h3>
+```python
+def turn(speed , seconds):
+	R.motors[0].m0.power = speed 
+	R.motors[0].m1.power = -speed 
+	time.sleep(seconds)
+	R.motors[0].m0.power =0
+	R.motors[0].m1.power =0
+```
 
-    *  `False` : if the robot doesn't detect golden boxes 
+The "Turn on Axis" Function provides the capability for the robot to rotate around its central point. It takes two arguments, "speed" and "seconds", that control the behavior of the robot during the rotation.
 
-    *  `True` : if the robot detect golden boxes 
+The "speed" argument defines the velocity of the motors, with one motor moving in a positive direction and the other in a negative direction to create the rotation. The "seconds" argument specifies the duration of the rotation, indicating the time interval for which the rotation should take place.
 
-
-* `find_silver_token()` : This function detects the closest silver token to the robot in a 140° cone (between -70 ° and 70°) at a maximum distance of 1.2. Furthermore, thanks to the `gold_in_between()` function, the robot ignores the tokens silver behind the walls or that have obstacles that precede them. The main purpose here is to recognise tokens silver to approach.
-
-    `Returns` :
-
-    *  dist : The distance of the closest silver token, `-1` if no silver tokens are detected or if they are preceded by obstacles (golden boxes).
-
-    *  rot_y : The angle in degrees between the robot and the silver token, `-1` if no silver tokens are detected or if they are preceded by obstacles (golden boxes).
+This function does not produce any returns and is used to give the robot the ability to turn on its axis.
 
 
-* `gold_in_between(dist, rot_y)` : This function is used inside `find_silver_token()` to check the presence or absence of golden boxes between the robot and the silver tokens it is looking for. 
+* <h3>find golden tokens:<h3>
 
-    `Arguments` :
-
-    * dist : The distance of the current silver token that the robot has seen.
-
-    * rot_y : The angle in degrees of the current silver token that the robot has seen.
-
-    `Returns` :
-
-    * `False` : if there aren't golden boxes between the robot and the current silver token that the robot has seen.
-
-
-    * `True` : if there's at least one golden box between the robot and the current silver token that the robot has seen.
-
-
-## Rotation ##
-
-A function called `Rotation()` has been implemented to move the robot counter-clockwise and to follow the maze without ever going back. 
-
-* `Rotation()` : When the robot is close to the wall it calculates (using the `R.see()` method) the distance between it and the nearest golden box, respectively, to its right and left, each at an angle of 30° (between 75° and 105° for its right and between -105° and -75° for its left). 
-
-    This function has no `Returns` .
-
-<p align="center">
-    
-<img src="https://github.com/MatteoCarlone/my_Research_Track/blob/main/images/rotation.jpeg" width="486.75" height="266.625">
-    
-</p>
-
-The Robot will rotate towards the furthest golden box until it no longer sees any golden box in a 91° cone at a distance of 1 in front of it. 
-
-The angle and the distance fo the cone are settable by passing the arguments to the function `find_golden_token(distance = ... , angle = ...)` .
-    
-<p align="center">
-    
-<img src="https://github.com/MatteoCarlone/my_Research_Track/blob/main/images/finish_rot.jpeg" width="486.75" height="266.625">
-    
-</p>
-
-<h5> The Rotation turns out to be: </h5>
-
-<p align="center">
-    
-<img src="https://github.com/MatteoCarlone/my_Research_Track/blob/main/images/rotation.gif" width="486.75" height="266.625">
-    
-</p>
-
-MAIN Function
----------
-
-Before start coding it was very useful to create a Flowchart to have clear ideas on the main actions that the robot has to do in its path inside the maze.
-
-![FlowChart](https://user-images.githubusercontent.com/81308076/139292559-a076b5e5-06ac-4153-b2c1-8f0a6afffaa7.png)
-
-The idea of the `main()` function is to have an infinite loop to make the robot work continuously:
-
-* The First step is to look for the gold boxes, the robot behavior will be different if it is close to a gold box or to a silver token.
-    
-* Second step, check if a silver token is in the robot's field of vision or not.
-    
-* the Third step dependes by the second one:
-    
-	* If the robot see a silver token, it will approach it in order to grab it. This control is made with the statement " if rot_y != -1 " because find_silver_token() returns -1 if no silver token are detected.
+```python
+def find_golden_token(distance=0.9, angle=45):
+	dist = distance
+	for token in R.see():
 		
-	* If the robot doesn't see a silver token, it will drive straight ahead.
+		if token.dist < dist and token.info.marker_type is MARKER_TOKEN_GOLD and -angle < token.rot_y < angle:
+			
+			dist = token.dist
 		
-* Fourth step, strictly related to the First, if the robot is close to a golden box, it will call the Rotation() function to turn counter-clockwise with respect to the path.
+		rot_y = token.rot_y
+		
+	if dist == distance:
+		
+		return False
+	
+	else:
+		
+		return True 
+```
+Function detects closest golden box in a cone-shaped area. The cone has a default angle of 90 degrees (-45 to 45) and a maximum distance of 0.9. 
+
+It stops the robot and helps avoid walls. 
+
+Arguments "distance" and "angle" can be set. Returns True if no golden boxes detected, False if detected.
 
 
-Results
----------
+* <h3>find Silver tokens:<h3>
 
-I thought the results of the code and therefore of the project would be well represented with a video that shows the behaviour of the robot during the first lap of the track.
+```python
+dist = 1.2
+	
+	for token in R.see():
+	
+		if -70 < token.rot_y < 70:
+		
+			if token.info.marker_type is MARKER_TOKEN_SILVER and token.dist < dist:
+			
+				if gold_in_between(token.dist, token.rot_y):
+				
+					print("Looking for a new Silver!!")
+					
+				else:
+					
+					dist = token.dist 
+					
+					rot_y = token.rot_y
+	if dist == 1.2:
+	
+		return -1, -1
+		
+	else:
+		
+		return dist, rot_y
+```
 
-https://user-images.githubusercontent.com/81308076/139293325-9dfea8ab-4a7c-4481-aa39-1c1f78bff8f4.mp4
+The function ``` def find_silver_token() ``` has the capability to identify the nearest silver token within a 140-degree cone, with a maximum range of 1.2 meters. 
 
-Possible improvements ![ezgif-4-0c80dd65ae1b](https://user-images.githubusercontent.com/81308076/139424213-cf5eea84-d903-4c21-bd66-cc046236b222.gif)
-------
+The function utilizes the ``` def gold_in_between(dist, rot_y) ``` method to overlook any tokens that may be blocked by obstacles such as walls. 
 
-The greatest difficulty of this assignment was surely that there are many ways to satisfy the professor request. During the coding, in fact, I implemented many functions ( still visible in the history of this project ) just because I had more than one idea of how the robot could move inside the arena.
+The primary objective of this function is to locate and approach silver tokens. 
 
-The code is now clean and short but also the way the robot moves in the environment is simple, its way of turning and detecting the silver tokens could be made more complex but smarter with some improvements:
+The output of this function includes the distance to the closest silver token and the angle in degrees between the robot and the token. If no silver tokens are detected or if they are obstructed by golden boxes, the function returns -1.
+											       
+The ``` def find_silver_token() ``` function has two sub-functions: ``` def gold_in_between(dist, rot_y) ```, and ``` def Routine()```.								       
+  - ``` def gold_in_between(dist, rot_y) ``` checks for the presence of golden boxes between the robot and the silver tokens it is searching for. It takes the distance and angle of the detected silver token as input and returns False if there are no golden boxes in between, or True if there are. 
+  
+  - ``` def Routine()```is called if ``` def gold_in_between(dist, rot_y) ``` returns False, and it carries out the sequence of actions to approach, grab, turn, release, and turn away from the silver token. This function only activates if the robot is close enough to the silver token, with a distance threshold of 0.4. If the robot is too far from the silver token, it continues to drive.
+  
 
-1. __Online Control__ : The idea is to never stop detecting the silver tokens knowing that the robot will ignore gold boxes, a remnant of this idea lies in the gold_in_between () function, which in the final version of the project turns out to be an all too precise control. The result of this method is that the robot will not move around the arena giving priority to the golden boxes but its real target, the silver tokens. Furthermore, thanks to the control on possible obstacles in front of the tokens, the robot could have a very wide view to detect them. As I have already mentioned, I tried to implement this method with good results, the robot detected silver tokens in a 300 ° cone also seeing behind it (not completely to avoid approaching tokens already grabbed). Unfortunately, in some cases, the robot detected silver tokens already approached and I decided to stop this implementation. However, This failure brought to me another possible improvement that I've never tried yet.
+* <h3>Rotation :<h3>
 
-2. __Already Grabbed Token__ : I'm not sure if this improvement is feasible but I think the `code` attribute of the` MarkerInfo` objects (described in the **vision feature**) could be very useful to ignore the silver tokens that the robot has already grabbed by saving their code. This idea added to the **Online Control** will let the robot have a 360° view without ever going back.
+```python
+def Rotation():
+	dist_right = 7
+	dist_left = 7
+	
+	for token in R.see():
+	
+		if 75 < token.rot_y < 105:
+		
+			if token.info.marker_type is MARKER_TOKEN_GOLD and token.dist < dist_right:
+				
+				dist_right = token.dist
+				
+		if -105 < token.rot_y < -75:
+		
+			if token.info.marker_type is MARKER_TOKEN_GOLD and token.dist < dist_left:
+			
+				dist_left = token.dist 
+				
+	if dist_right > dist_left:
+	
+		while find_golden_token(1,45.5):
+		
+			turn(10,0.1)	
+	else:
+	
+		while find_golden_token(1,45.5):
+			
+			turn(-10,0.1)
+```
+The described function serves to calculate the distance between the robot and the nearest golden box to its right and left, each at an angle of 30 degrees. The range for the right golden box falls between 75 and 105 degrees, while for the left it falls between -105 and -75 degrees.
+
+In order to locate the golden box, the robot will rotate towards the furthest golden box until it no longer detects any golden box in a cone with a 91-degree field of view and a distance of 1 unit in front of it. The angle and distance of the cone can be adjusted by passing the arguments to the function ``` find_golden_token(..,..) ```.
+
+Thanks to this feature, the robot will always turn counter-clockwise when searching for the golden box.
+	
+	
+
+* <h3>main() :<h3>
+	
+The main goal of this function is to allow the robot to continuously perform its tasks. It follows these steps:
+
+1. Look for golden boxes. The robot's behavior changes based on its proximity to a golden box or a silver token.
+
+2. Check if a silver token is within the robot's field of vision.
+
+3. Take action based on the result of step 2:
+	- If the robot detects a silver token, it moves towards it to grab it. This is done through checking "if rot_y != -1", as find_silver_token() returns -1 if no silver tokens are found.
+	- If the robot doesn't detect a silver token, it continues driving straight ahead.
+
+		
+	
+4. If the robot is close to a golden box, it will call the ``` def Rotation(): ``` function to turn counter-clockwise with respect to its path.
+	
 
 
-[sr-api]: https://studentrobotics.org/docs/programming/sr/
+<!-- Simulation_and_Results -->
+## Simulation_and_Results
+
+https://user-images.githubusercontent.com/94115975/218223479-2e771eb1-105f-4806-9850-aedf24090665.mp4
+
+<!-- Robot_Movement_Improvement_Proposal -->
+## Robot_Movement_Improvement_Proposal
+
+The following report will outline two potential improvements to the current code. These modifications aim to enhance the robot's movement and make it smoother and more efficient.
+
+Online control: The first improvement involves implementing online control to the robot's movement. The goal of this modification is to keep the robot centered and to prevent it from hitting walls while seeking the silver tokens. To achieve this, the robot will be designed to always see where the silver tokens are and maintain the center of the line.
+
+Additional controls: The second improvement involves adding more controls to the code to handle different shapes of mazes. As the current code is straightforward and meets the requirements set by the professor, additional controls may be necessary to address any potential issues with the robot's movement in mazes with different shapes such as zig-zag or wave-shaped walls. These additional controls will help the robot navigate the maze more efficiently and effectively.
+
+In conclusion, these two improvements have the potential to significantly enhance the robot's movement and make it smoother and more efficient. The implementation of online control and additional controls will allow the robot to better navigate the maze and perform its tasks more effectively.
