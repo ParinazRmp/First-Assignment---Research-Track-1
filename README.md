@@ -104,7 +104,9 @@ Each `Marker` object has the following attributes:
 
 
 <!-- Flowchart  -->
-## Flowchart 
+## Flowchart
+<img width="1042" alt="Flowchart - Parinaz" src="https://user-images.githubusercontent.com/94115975/218449054-29d4a989-1b23-4be3-b515-2c92f093829d.png">
+ 
 
 <!-- Main Functions -->
 ## Main_Functions
